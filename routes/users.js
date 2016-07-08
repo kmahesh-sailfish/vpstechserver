@@ -21,7 +21,7 @@ var router =function(pool){
 
   });
   accountRouter.route('/inseruser').post(function(req, res, next) {
-    var query="insert into Users(userName,userLastname,useraddress,useremail) values"+"('" +req.body['userName']+"','"+req.body['userLastname']+"','"+req.body['useraddress']+"','"+req.body['useremail']+"')";
+    var query="insert into Users(userName,userLastname,useraddress,useremail) values"+"('" +req.body['Name']+"','"+req.body['Lastname']+"','"+req.body['Address']+"','"+req.body['Email']+"')";
     pool.getConnection(function(err,connection){
       connection.query(query,function(err,rows){
         connection.release();

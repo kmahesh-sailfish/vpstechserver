@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var mysql=require('mysql');
+var jwt = require('express-jwt');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var pool=mysql.createPool({
@@ -52,10 +53,16 @@ app.use(function (req, res, next) {
 /*app.use('/', routes);*/
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+var authenticate = jwt({
+  secret: new Buffer('MIvWGWzF4Dsvi12-GlUIBd8XBn47hxIVl9feZT7M-MJB9Y7m7BXQ83q4sdqQLVQD', 'base64'),
+  audience: 'tT8knUJcg3m2amqT0FEaHBkbjFKCEOEI'
+});
 app.get('/', function (req, res) {
   res.send("welcome to api..")
 });
-app.use('/users', users);
+app.use('/api',authenticate);
+app.use('/api/users', users);
+app.use('/users',users);
 app.use(bodyParser.json());
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

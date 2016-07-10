@@ -41,7 +41,7 @@ var router =function(pool){
   accountRouter.route('/getuserbyid').get(function(req,res,next)
   {
 
-    console.log(req.query.idUsers);
+
     pool.getConnection(function (err, connection)
     {
 
@@ -49,7 +49,7 @@ var router =function(pool){
       if (req.query.idUsers)
       {
         var query = "select * from Users where idUsers= '" + req.query.idUsers + "'";
-        console.log('queryt' + query);
+
         connection.query(query, function (err, rows)
         {
           if (err)
@@ -73,8 +73,8 @@ var router =function(pool){
 
   accountRouter.route('/updateuser').put(function(req,res,next){
     if (req.query.idUsers) {
-      console.log(req.query.idUsers)
-      console.log(req.body);
+
+
      /* var query="UPDATE Users SET userName='"+req.body['userName']+"','"+req.bodywhere idUsers= '"+req.query.idUsers+"'";*/
       var query="UPDATE Users SET userName='"+req.body['Name']+"',userLastname='"+req.body['Lastname']+"',useraddress='"+req.body['Address']+"',useremail='"+req.body['Email']+"'where idUsers= '"+req.query.idUsers+"'";
       pool.getConnection(function(err,connection){
@@ -102,9 +102,9 @@ var router =function(pool){
       connection.release();
       if (req.query.idUsers)
       {
-        console.log(req.body);
+
         var query = "delete from Users where idUsers ='" + req.query.idUsers + "'";
-        console.log('queryt' + query);
+
         connection.query(query, function (err, rows)
         {
           if (err)
